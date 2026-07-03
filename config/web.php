@@ -59,7 +59,9 @@ $config = [
     'params' => $params,
 ];
 
-if (YII_ENV_DEV) {
+// Solo carga debug/gii si sus paquetes (require-dev) están instalados.
+// En el contenedor se instala con --no-dev, por lo que no existen y no deben cargarse.
+if (YII_ENV_DEV && class_exists(\yii\debug\Module::class)) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
